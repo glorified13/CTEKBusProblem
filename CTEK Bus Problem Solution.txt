@@ -1,0 +1,39 @@
+//You may run the code on any online CPP compiler to see the results.
+
+#include <iostream>
+#include <vector>
+
+typedef std::pair<int, int> passengerInOut;
+
+int main()
+{
+    const int firstOutVal = 0;
+    const int lastOutVal = 0;
+	std::vector<passengerInOut> busStops = { { firstOutVal, 3 }, { 2, 5 }, { 4, 2 }, { 4, lastOutVal } };
+    
+	int minimumPassengers = 0;
+	int currentPassengers = 0;
+	int stopCount = 0;
+
+	for (const passengerInOut &p: busStops) {
+	    ++stopCount;
+	    
+	    std::cout << "At BusStop" << stopCount << ", the number of passengers inside the bus is " << currentPassengers << ". \n";
+	    
+	    currentPassengers = (currentPassengers - p.first) + p.second;
+	    
+	    if (currentPassengers < 0) {
+	        //incorrect input
+	        std::cout << "Exiting passenger exceeds current number of passengers in the bus!";
+	        return 0;
+	    }
+	    std::cout << p.first << " passengers exit, then " << p.second << " passengers enter the bus.\n";
+	    std::cout << "The total passengers on the bus becomes " << currentPassengers << ". \n\n";
+	   
+	    if (currentPassengers > minimumPassengers) minimumPassengers = currentPassengers;
+	}
+	
+	std::cout << "Bus capacity of " << minimumPassengers << " was sufficient.";
+
+	return 0;
+}
